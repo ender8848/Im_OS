@@ -1,10 +1,3 @@
-/******************************************************************
- * Header file for the helper functions. This file includes the
- * required header files, as well as the function signatures and
- * the semaphore values (which are to be changed as needed).
- ******************************************************************/
-
-
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -58,16 +51,16 @@ struct Args
 vector<int> parse_args(int argc, char** argv) ;
 
 /* 
-* create a semaphore set with num semaphores
-* @oaram key: key for the semaphore set
-* @param num: number of semaphores in the set
-* @return: semaphore set id
+* create a semaphore array with num semaphores
+* @oaram key: key for the semaphore array
+* @param num: number of semaphores in the array
+* @return: semaphore array id
 */
 int sem_create (key_t key, int num);
 
 /*
-* initialize the num-th semaphore in the set as value
-* @param id: semaphore set id
+* initialize the num-th semaphore in the array as value
+* @param id: semaphore array id
 * @param num: the num-th semaphore to initialize
 * @param value: value to initialize the semaphore -- size for p, 1 for mutex and 0 for c
 */
@@ -76,8 +69,8 @@ int sem_init (int id, int num, int value);
 
 /*
 * wait for semaphore
-* @param id: semaphore set id
-* @param num: the num-th semaphore in the set
+* @param id: semaphore array id
+* @param num: the num-th semaphore in the array
 * @param time: max time to wait
 * @return: false if waited more than time, true otherwise, can be intepreted as patient or not
 */
@@ -86,14 +79,14 @@ bool timed_wait(int id, short unsigned int num, int time = 20);
 
 /*
 * signal the semaphore
-* @param id: semaphore set id
-* @param num: the num-th semaphore in the set
+* @param id: semaphore array id
+* @param num: the num-th semaphore in the array
 */
 void sem_signal (int id, short unsigned int num);
 
 /*
-* close the semaphore set and free up resources
-* @param id: semaphore set id
+* close the semaphore array and free up resources
+* @param id: semaphore array id
 * @return: 0 if successful, -1 otherwise
 */
 int sem_close (int);

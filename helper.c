@@ -1,6 +1,6 @@
 /******************************************************************
  * The helper file that contains the following helper functions:
- * check_arg - Checks if command line input is a number and returns it
+ * parse_args - Checks if command line input is valid and parse it
  * sem_create - Create number of sempahores required in a semaphore array
  * sem_init - Initialise particular semaphore in semaphore array
  * sem_wait - Waits on a semaphore (akin to down ()) in the semaphore array
