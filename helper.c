@@ -58,12 +58,13 @@ int sem_init (int id, int num, int value)
   return 0;
 }
 
-void sem_wait (int id, short unsigned int num)
+bool timed_wait (int id, short unsigned int num, int time)
 {
+  struct timespec wait_time = {time, 0};
   struct sembuf op[] = {
     {num, -1, SEM_UNDO}
   };
-  semop (id, op, 1);
+  return semtimedop (id, op, 1, &wait_time) >= 0;
 }
 
 void sem_signal (int id, short unsigned int num)

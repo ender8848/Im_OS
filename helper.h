@@ -22,7 +22,7 @@
 # include <vector>
 using namespace std;
 
-# define SEM_KEY 0x50 // Change this number as needed
+# define SEM_KEY 0x51 // Change this number as needed
 
 union semun {
     int val;               /* used for SETVAL only */
@@ -64,7 +64,14 @@ int sem_create (key_t key, int num);
 int sem_init (int id, int num, int);
 
 
-void sem_wait (int, short unsigned int);
+/*
+* wait for semaphore
+* @param id: semaphore id
+* @param num: semaphore number
+* @param time: time to wait
+* @return: false if waited more than time, true otherwise
+*/
+bool timed_wait(int id, short unsigned int num, int time);
 
 
 void sem_signal (int, short unsigned int);
