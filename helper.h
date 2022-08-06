@@ -30,9 +30,44 @@ union semun {
     ushort *array;         /* used for GETALL and SETALL */
 };
 
-vector<int> parse_args(int, char**) ;
-int sem_create (key_t, int);
-int sem_init (int, int, int);
+struct Job
+{
+    int id;
+    int duration; // sleep time
+    bool finished = true; // if false, reject job arrangement
+};
+
+struct Args
+{
+    int size_of_q; // q -> queue
+    int num_of_jobs_to_arrange; // = num_of_p * num_of_jobs_per_p
+    int num_of_jobs_to_arrange_per_producer; 
+    int num_of_jobs_available = 0;
+    int num_of_producers;
+    int num_of_consumers;
+    int sem_id; 
+};
+
+
+/*
+* parse args
+* @param argc: number of arguments
+* @param argv: array of arguments
+* @return: vector of parsed arguments
+*/
+vector<int> parse_args(int argc, char** argv) ;
+
+
+int sem_create (key_t key, int num);
+
+
+int sem_init (int id, int num, int);
+
+
 void sem_wait (int, short unsigned int);
+
+
 void sem_signal (int, short unsigned int);
+
+
 int sem_close (int);

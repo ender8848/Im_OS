@@ -15,7 +15,7 @@ vector<int> parse_args(int argc, char** argv) {
   // wrong use
   if (argc != 5) {
     std::string error = "Usage: " + std::string(argv[0]) + 
-    " <number of processes> <number of resources> <number of processes per resource> <number of resources per process>";
+    " <num of processes> <num of jobs per producer> <num of producers> <num of consumers>";
     // return an exception with the message 
     throw std::runtime_error(error);
   }
