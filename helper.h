@@ -57,24 +57,43 @@ struct Args
 */
 vector<int> parse_args(int argc, char** argv) ;
 
-
+/* 
+* create a semaphore set with num semaphores
+* @oaram key: key for the semaphore set
+* @param num: number of semaphores in the set
+* @return: semaphore set id
+*/
 int sem_create (key_t key, int num);
 
-
-int sem_init (int id, int num, int);
+/*
+* initialize the num-th semaphore in the set as value
+* @param id: semaphore set id
+* @param num: the num-th semaphore to initialize
+* @param value: value to initialize the semaphore -- size for p, 1 for mutex and 0 for c
+*/
+int sem_init (int id, int num, int value);
 
 
 /*
 * wait for semaphore
-* @param id: semaphore id
-* @param num: semaphore number
-* @param time: time to wait
-* @return: false if waited more than time, true otherwise
+* @param id: semaphore set id
+* @param num: the num-th semaphore in the set
+* @param time: max time to wait
+* @return: false if waited more than time, true otherwise, can be intepreted as patient or not
 */
-bool timed_wait(int id, short unsigned int num, int time);
+bool timed_wait(int id, short unsigned int num, int time = 20);
 
 
-void sem_signal (int, short unsigned int);
+/*
+* signal the semaphore
+* @param id: semaphore set id
+* @param num: the num-th semaphore in the set
+*/
+void sem_signal (int id, short unsigned int num);
 
-
+/*
+* close the semaphore set and free up resources
+* @param id: semaphore set id
+* @return: 0 if successful, -1 otherwise
+*/
 int sem_close (int);
