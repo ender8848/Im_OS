@@ -11,16 +11,21 @@ void *consumer (void *id);
 int main (int argc, char **argv)
 {
 
-  // TODO
+  try {
+    vector<int> args = parse_args(argc, argv);
+  } catch (exception& e) {
+    cout << e.what() << endl;
+    return 1;
+  }
 
-  pthread_t producerid;
-  int parameter = 5;
+  // pthread_t producerid;
+  // int parameter = 5;
 
-  pthread_create (&producerid, NULL, producer, (void *) &parameter);
+  // pthread_create (&producerid, NULL, producer, (void *) &parameter);
 
-  pthread_join (producerid, NULL);
+  // pthread_join (producerid, NULL);
 
-  cout << "Doing some work after the join" << endl;
+  // cout << "Doing some work after the join" << endl;
 
   return 0;
 }

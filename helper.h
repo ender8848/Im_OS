@@ -19,6 +19,7 @@
 # include <pthread.h>
 # include <ctype.h>
 # include <iostream>
+# include <vector>
 using namespace std;
 
 # define SEM_KEY 0x50 // Change this number as needed
@@ -29,7 +30,7 @@ union semun {
     ushort *array;         /* used for GETALL and SETALL */
 };
 
-int check_arg (char *);
+vector<int> parse_args(int, char**) ;
 int sem_create (key_t, int);
 int sem_init (int, int, int);
 void sem_wait (int, short unsigned int);

@@ -9,20 +9,36 @@
  ******************************************************************/
 
 # include "helper.h"
+# include <exception>
 
-int check_arg (char *buffer)
-{
-  int i, num = 0, temp = 0;
-  if (strlen (buffer) == 0)
-    return -1;
-  for (i=0; i < (int) strlen (buffer); i++)
-  {
-    temp = 0 + buffer[i];
-    if (temp > 57 || temp < 48)
-      return -1;
-    num += pow (10, strlen (buffer)-i-1) * (buffer[i] - 48);
+vector<int> parse_args(int argc, char** argv) {
+  // wrong use
+  if (argc != 5) {
+    std::string error = "Usage: " + std::string(argv[0]) + 
+    " <number of processes> <number of resources> <number of processes per resource> <number of resources per process>";
+    // return an exception with the message 
+    throw std::runtime_error(error);
   }
-  return num;
+  // wrong number
+  for (int i = 1; i < argc; i++) {
+    int j = 0;
+    while (argv[i][j] != '\0') {
+      if (argv[i][j] > '9' || argv[i][j] < '0') {
+        std::string error = "Invalid arg " + std::string(argv[i]) + "\n";
+        throw std::runtime_error(error);
+      }
+      j++;
+    }
+  }
+  // 0 as argument
+  for (int i = 1; i < argc; i++) {
+    if (std::stoi(argv[i]) == 0) {
+      std::string error = "Invalid arg " + std::string(argv[i]) + "\n";
+      throw std::runtime_error(error);
+    }
+  }
+  // parse args
+  return {atoi(argv[1]), atoi(argv[2]), atoi(argv[3]), atoi(argv[4])};
 }
 
 int sem_create (key_t key, int num)
